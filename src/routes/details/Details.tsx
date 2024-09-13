@@ -8,6 +8,7 @@ import Company from "../../components/company/Company"
 import { IComment, IProduct } from "../../types"
 import { useDispatch } from "react-redux";
 import { AddToCart } from "../../redux/slice/cartSlice";
+import { message } from "antd";
 
 const Details = () => {
   const {id} = useParams<{id: string}>()
@@ -21,6 +22,7 @@ const Details = () => {
 
   const handleAddToCart = (product: IProduct) => {
     dispatch(AddToCart(product))
+    message.success(`${product.title} added to cart`)
   }
 
   return (

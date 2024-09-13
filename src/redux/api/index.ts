@@ -1,9 +1,7 @@
 import { fetchBaseQuery, retry, createApi } from "@reduxjs/toolkit/query/react";
 import { signOut } from "../slice/authSlice";
-import { useNavigate } from "react-router-dom";
 
 const baseQuery = async (args: any, api: any, extraOptions: any) => {
-    const navigate = useNavigate()
     const {dispatch} = api;
     const rawBaseQuery = fetchBaseQuery({
         baseUrl: "https://dummyjson.com/",
@@ -24,9 +22,8 @@ const baseQuery = async (args: any, api: any, extraOptions: any) => {
 
     if(response.error){
         const {status} = response.error;
-        if(status === 401 || status === 403){
+        if(status === 401 || status === 403 || status === 500){
             dispatch(signOut())
-            navigate("/auth")
         }
     }
 

@@ -5,7 +5,7 @@ const productsApi = api.injectEndpoints({
     endpoints: (build) => ({
         getProducts: build.query<Response, void>({
             query: () => ({
-                url: "/products"
+                url: "/products",
             }),
             providesTags: ["Products"]
         }),

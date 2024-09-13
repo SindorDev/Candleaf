@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from "react-redux"
 import { RemoveCart } from "../../redux/slice/cartSlice"
 import { Link } from "react-router-dom"
+import { message } from "antd"
 
 const CartProduct = ({data}: any) => {
   const dispatch = useDispatch()
   const quantity = useSelector((state: any) => state.cart.quantity)
   const handleRemove = (item: any) => {
     dispatch(RemoveCart(item))
+    message.success(`${item.title} removed from cart`)
   }
 
   return (
@@ -29,6 +31,7 @@ const CartProduct = ({data}: any) => {
               <div className="w-full my-8 border-2 border-[#e6e6e6]"></div>
             {
               data.map((item: any) => (
+                
                   <>
                 <div key={item.id} className="flex items-center">
                   <div className="flex items-center gap-5 w-full">

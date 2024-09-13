@@ -55,9 +55,7 @@ export interface Response {
   email: string;
   username: string;
   products: IProduct[]
-  comments: {
-    comments: IComment[]
-  }
+  comments: IComment[]
   users: IUser[]
   description: string
   quantity: number

@@ -21,7 +21,7 @@ const Register = () => {
 
   useEffect(() => {
     if(isSuccess && data) {
-      message.success("Login Success")
+      message.success("Register Success")
       navigate("/auth")
     }
   }, [isSuccess, data])
