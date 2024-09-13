@@ -6,20 +6,27 @@ import Header from "../../components/header/Header"
 import Footer from "../../components/footer/Footer"
 import Company from "../../components/company/Company"
 import { IComment, IProduct } from "../../types"
+import { useDispatch } from "react-redux";
+import { AddToCart } from "../../redux/slice/cartSlice";
 
 const Details = () => {
   const {id} = useParams<{id: string}>()
-  const [getProductById, {data}] = useGetProductByIdMutation()
+  const [getProductById, {data}] = useGetProductByIdMutation<{data: IProduct}>()
   const {data: comments} = useGetProductCommentsQuery<{data: IComment[]}>()
-
-
+  const dispatch = useDispatch()
   useEffect(() => {
     getProductById(Number(id))
   }, [id])
+
+  const handleAddToCart = (product: IProduct) => {
+    dispatch(AddToCart(product))
+  }
+
   return (
     <>
     <Header/>
     <div>
+
       <section className="py-16">
         <div className="w-full max-w-[1240px] mx-auto">
             <div>
@@ -41,6 +48,7 @@ const Details = () => {
                     </div>
                   </div>
                   <div className="w-full">
+
                     <div>
                       <h1 className="text-[#272727] text-[26px] font-medium title leading-[57.60px]">
                         {data.title}
@@ -87,14 +95,17 @@ const Details = () => {
                               <p className="">{data.description}</p> 
                             </div>            
 
-                              <button className="bg-[#56b280] text-white text-base flex items-center mt-[67px]  gap-5 font-medium text leading-none py-4 w-full justify-center px-20 rounded">
+                              <button onClick={() => handleAddToCart(data)} className="bg-[#56b280] text-white text-base flex items-center mt-[67px]  gap-5 font-medium text leading-none py-4 w-full justify-center px-20 rounded">
                                 <BiCartAlt size={20} /> + Add to cart
                               </button>         
                         </div>
                       </div>
                       <div className="flex  flex-col gap-2 my-5">
+                        <h3 className="text-[#272727] text-[26px] font-medium title leading-[57.60px]">
+                          Customer Reviews
+                        </h3>
                         {
-                          comments.comments.slice(0, 3).map((comment: IComment) => (
+                          comments?.slice(0, 3).map((comment: IComment) => (
                             <div key={comment.id} className="flex gap-5 border-2 border-[#e6e6e6] p-4 rounded">
                               <h3>{comment.user.fullName}:</h3>
                               <p>{comment.body}</p>

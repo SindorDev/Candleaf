@@ -47,6 +47,26 @@ export interface Review {
 export interface Response {
   message: string;
   payload: IProduct[];
+  token: string
+  firstName: string;
+  image: string;
+  university: string;
+  gender: string;
+  email: string;
+  username: string;
+  products: IProduct[]
+  // comments: IComment[]
+  users: IUser[]
+  description: string
+  quantity: number
+  price: number
+  total: number
+  title: string
+  body: string
+  postId: number
+  id: number
+  thumbnail: string
+  
 }
 
 export interface IUser {
@@ -58,10 +78,14 @@ export interface IUser {
 export interface IComment {
   id: number;
   body: string;
-  postId: number;
   user: {
-    id: number;
-    username: string;
     fullName: string;
   };
+  comments: {
+    id: number;
+  body: string;
+  user: {
+    fullName: string;
+  };
+  }
 }
