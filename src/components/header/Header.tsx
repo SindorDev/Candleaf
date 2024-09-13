@@ -3,7 +3,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import avatar from '../../assets/images/icon.png'
 import logo from "../../assets/icons/wordmark.svg"
 import { Link, NavLink } from 'react-router-dom'
-import { Select, Space, AutoComplete, Badge } from "antd";
+import { Select, AutoComplete, Badge } from "antd";
 import axios from "axios";
 import { useState } from "react";
 import { useSelector } from "react-redux";
