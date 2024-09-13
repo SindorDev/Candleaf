@@ -105,7 +105,7 @@ const Details = () => {
                           Customer Reviews
                         </h3>
                         {
-                          comments?.slice(0, 3).map((comment: IComment) => (
+                          comments?.comments?.slice(0, 3).map((comment: IComment) => (
                             <div key={comment.id} className="flex gap-5 border-2 border-[#e6e6e6] p-4 rounded">
                               <h3>{comment.user.fullName}:</h3>
                               <p>{comment.body}</p>
