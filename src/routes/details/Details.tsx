@@ -12,7 +12,8 @@ import { AddToCart } from "../../redux/slice/cartSlice";
 const Details = () => {
   const {id} = useParams<{id: string}>()
   const [getProductById, {data}] = useGetProductByIdMutation<{data: IProduct}>()
-  const {data: comments} = useGetProductCommentsQuery<{data: IComment[]}>()
+  const {data: comments} = useGetProductCommentsQuery<{data: {comments: IComment[]}}>()
+
   const dispatch = useDispatch()
   useEffect(() => {
     getProductById(Number(id))

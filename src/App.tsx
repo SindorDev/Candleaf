@@ -12,7 +12,7 @@ function App() {
   const {token} = useSelector((state: any) => state.auth)
 
   return (
-    <div className='w-full  mx-auto'>
+    <div>
       
     <Routes>
       <Route path='/' element={<Menu/>}/>

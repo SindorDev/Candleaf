@@ -3,6 +3,8 @@ import { useGetProductsQuery } from "../../redux/api/products-api"
 import { IProduct } from "../../types"
 const Products = ({end}: {end: number}) => {
   const {data} = useGetProductsQuery()
+
+
   return (
        <section className="my-[90px]">
             <div className="text-center w-full max-w-[1240px] mx-auto ">

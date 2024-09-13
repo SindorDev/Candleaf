@@ -25,6 +25,8 @@ const userApi = api.injectEndpoints({
                 method: "POST",
                 body
             }),
+            invalidatesTags: ["Products"]
+        
         }),
         register: build.mutation<Response, void>({
             query: (body) => ({
@@ -32,6 +34,7 @@ const userApi = api.injectEndpoints({
                 method: "POST",
                 body
             }),
+            invalidatesTags: ["Products"]
         })
     })
 })
