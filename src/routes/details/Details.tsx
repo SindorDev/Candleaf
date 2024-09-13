@@ -8,7 +8,7 @@ import Company from "../../components/company/Company"
 import { IComment, IProduct } from "../../types"
 import { useDispatch } from "react-redux";
 import { AddToCart } from "../../redux/slice/cartSlice";
-import { message } from "antd";
+import { message, Radio, Select, Space  } from "antd";
 
 const Details = () => {
   const {id} = useParams<{id: string}>()
@@ -68,7 +68,7 @@ const Details = () => {
                           Quantity
                         </span>
                         <div>
-                          <div className="flex items-center gap-4 mt-2 border-2 border-[#56b280] w-full max-w-[80px]">
+                          <div className="flex items-center gap-4 mt-2 border-2 px-2 justify-center border-[#56b280] w-full max-w-[80px]">
                             <button className="w-8 h-8 bg-[#F7F8FA] text-[#272727] text-xl font-medium flex items-center justify-center rounded">+</button>
                             <span className="text-[#272727] text-xl font-medium">1</span>
                             <button className="w-8 h-8 bg-[#F7F8FA] text-[#272727] text-xl font-medium flex items-center justify-center rounded">-</button>
@@ -78,27 +78,33 @@ const Details = () => {
                         </div>
                         <div className="flex items-start gap-5 flex-col">
                             <div className="flex items-center p-4 gap-2">
-                              <input type="checkbox" />
+                              <Radio></Radio>
                               <span className="text-[#272727] text-base font-normal text leading-none">
                               One time purchase  
                               </span>
                             </div>            
                             <div className="flex items-start border-2 p-4 rounded flex-col border-[#e6e6e6] gap-2">
                               <div className="flex items-center gap-2">
-                              <input type="checkbox" />
+                              <Radio></Radio>
                                 <span  className="text-[#272727] text-base font-normal text leading-none">
                               Subscribe and delivery every 
                                 </span>
-                              <select name="" id="">
-                                <option value="1">1 weeks</option>
-                                <option value="2">2 weeks</option>
-                                <option value="3">3 weeks</option>
-                              </select> 
+                                <Space>
+                                <Select
+                                defaultValue="1 weeks"
+                                style={{ width: "100%" }}
+                                options={[
+                                  { value: '1 weeks', label: '1 weeks' },
+                                  { value: '2 weeks', label: '2 weeks' },
+                                  { value: '3 weeks', label: '3 weeks' },
+                                ]}
+                              />
+                              </Space> 
                               </div>
                               <p className="">{data.description}</p> 
                             </div>            
 
-                              <button onClick={() => handleAddToCart(data)} className="bg-[#56b280] text-white text-base flex items-center mt-[67px]  gap-5 font-medium text leading-none py-4 w-full justify-center px-20 rounded">
+                              <button onClick={() => handleAddToCart(data)} className=" border-2 border-dashed border-[#56b280] hover:bg-[#56b280]  ease-in-out duration-300 text-[#56b280] hover:text-white text-base flex items-center mt-[67px]  gap-5 font-medium text leading-none py-4 w-full justify-center px-20 rounded">
                                 <BiCartAlt size={20} /> + Add to cart
                               </button>         
                         </div>

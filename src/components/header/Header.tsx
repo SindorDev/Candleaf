@@ -3,7 +3,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import avatar from '../../assets/images/icon.png'
 import logo from "../../assets/icons/wordmark.svg"
 import { Link, NavLink } from 'react-router-dom'
-import { AutoComplete, Badge } from "antd";
+import { Select, Space, AutoComplete, Badge } from "antd";
 import axios from "axios";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -46,13 +46,19 @@ const Header = () => {
       </div>
 
             <ul className='flex items-center gap-20'>
+
               <li>
                 <NavLink className="text-[#272727] text-base font-medium text " to="/">
-                 <select name="" id="">
-                  <option value="Dicovery">Dicovery</option>
-                  <option value="contact">contact</option>
-                  <option value="help">help</option>
-                 </select>
+                <Select
+      defaultValue="Discovery"
+      style={{ width: 120 }}
+      options={[
+        { value: 'Discovery', label: 'Discovery', disabled: true },
+        { value: 'Helper', label: 'Helper' },
+        { value: 'My Cart', label: 'My Cart' },
+
+      ]}
+    />
                 </NavLink>
               </li>
               
@@ -67,6 +73,7 @@ const Header = () => {
                   Contact Us
                 </NavLink>
               </li>
+            
             </ul>
             <div className="flex items-center gap-5">
               <NavLink to="/profile">

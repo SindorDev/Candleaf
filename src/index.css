@@ -15,3 +15,15 @@
 .shadow-cm {
        box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 10px;
 }
+.ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
+       background-color: #DBDBDB !important;
+       border-color: #DBDBDB !important;
+
+}
+.ant-radio-wrapper .ant-radio-checked .ant-radio-inner::after {
+       background-color: #56b280 !important;
+       inset-block-start: 17% !important;
+    inset-inline-start: 17% !important;
+    width: 25px !important;
+    height: 25px !important;
+}
