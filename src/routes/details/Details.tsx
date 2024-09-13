@@ -5,12 +5,13 @@ import { useEffect } from "react"
 import Header from "../../components/header/Header"
 import Footer from "../../components/footer/Footer"
 import Company from "../../components/company/Company"
-import { IProduct } from "../../types"
+import { IComment, IProduct } from "../../types"
 
 const Details = () => {
   const {id} = useParams<{id: string}>()
-  const [getProductById, {data}] = useGetProductByIdMutation<{data: IProduct[]}>()
-  const {data: comments} = useGetProductCommentsQuery()
+  const [getProductById, {data}] = useGetProductByIdMutation()
+  const {data: comments} = useGetProductCommentsQuery<{data: IComment[]}>()
+
 
   useEffect(() => {
     getProductById(Number(id))
@@ -24,11 +25,10 @@ const Details = () => {
             <div>
               {
                  data  && (
-
-                  <div key={data.id} className="flex items-start gap-[40px] w-full">
-                  <div className="flex items-center gap-5 flex-col w-full max-w-[530px] text-center">
-                      <div className="w-full bg-[#F7F8FA] flex items-center justify-center">
-                    <img src={data.thumbnail} alt={data.title} />
+                  <div key={data.id} className="flex items-start gap-[90px] w-full">
+                  <div className="flex items-center gap-5 flex-col w-full text-center">
+                      <div className="w-full bg-[#F7F8FA] h-full flex items-center justify-center">
+                    <img src={data.thumbnail} alt={data.title} className="w-full h-full object-contain" />
                       </div>
                     <div>
 
@@ -92,9 +92,16 @@ const Details = () => {
                               </button>         
                         </div>
                       </div>
-                      <p>
-                        
-                      </p>
+                      <div className="flex  flex-col gap-2 my-5">
+                        {
+                          comments.comments.slice(0, 3).map((comment: IComment) => (
+                            <div key={comment.id} className="flex gap-5 border-2 border-[#e6e6e6] p-4 rounded">
+                              <h3>{comment.user.fullName}:</h3>
+                              <p>{comment.body}</p>
+                            </div>
+                          ))
+                        }
+                      </div>
                     </div>
                   </div>
                   </div>
