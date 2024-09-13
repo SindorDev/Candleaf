@@ -8,11 +8,11 @@ import Company from "../../components/company/Company"
 import { IComment, IProduct } from "../../types"
 import { useDispatch } from "react-redux";
 import { AddToCart } from "../../redux/slice/cartSlice";
-import { message, Radio, Select, Space  } from "antd";
+import { message, Radio, Select, Space, Spin  } from "antd";
 
 const Details = () => {
   const {id} = useParams<{id: string}>()
-  const [getProductById, {data}] = useGetProductByIdMutation<{data: IProduct}>()
+  const [getProductById, {data, isLoading}] = useGetProductByIdMutation<{data: IProduct, isLoading: boolean}>()
   const {data: comments} = useGetProductCommentsQuery<{data: {comments: IComment[]}}>()
 
   const dispatch = useDispatch()
@@ -33,7 +33,7 @@ const Details = () => {
       <section className="py-16">
         <div className="w-full max-w-[1240px] mx-auto">
             <div>
-              {
+              { isLoading ? <div className="w-full h-full flex items-center justify-center"><Spin/></div> :
                  data  && (
                   <div key={data.id} className="flex items-start gap-[90px] w-full">
                   <div className="flex items-center gap-5 flex-col w-full text-center">

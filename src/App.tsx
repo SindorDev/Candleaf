@@ -1,31 +1,86 @@
-import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
-import './App.css'
-import Menu from './routes/home/Menu'
-import Details from './routes/details/Details'
-import Login from './routes/auth/login/Login'
-import Register from './routes/auth/register/Register'
-import CartProducts from './routes/cartProduct/CartProducts'
-import Profile from './routes/profile/Profile'
-import { useSelector } from 'react-redux'
+import { Navigate, Outlet, useParams, useRoutes } from "react-router-dom";
+import { lazy, useEffect } from "react";
+import "./App.css";
+const Menu = lazy(() => import("./routes/home/Menu"))
+const Details = lazy(() => import("./routes/details/Details"))
+const Login = lazy(() => import("./routes/auth/login/Login"))
+const Register = lazy(() => import("./routes/auth/register/Register"))
+const CartProducts = lazy(() => import("./routes/cartProduct/CartProducts"))
+const Profile = lazy(() => import("./routes/profile/Profile"))
+import { useSelector } from "react-redux";
+import { SuspenseElement as Suspense } from "./utils/index";
 
 function App() {
-  const {token} = useSelector((state: any) => state.auth)
+  const { token } = useSelector((state: any) => state.auth);
+  const params = useParams();
 
-  return (
-    <div>
-      
-    <Routes>
-      <Route path='/' element={<Menu/>}/>
-      <Route path='/product/:id' element={<Details/>}/>
-      <Route path='/auth' element={token ? <Navigate to="/"/> : <Outlet/>}>
-        <Route index path='' element={<Login/>}/>
-        <Route path='register' element={<Register/>}/>
-      </Route>
-      <Route path='/cartProduct' element={<CartProducts/>}/>
-      <Route path='/profile' element={token ? <Profile/> : <Navigate to="/auth"/>}/>
-    </Routes>
-    </div>
-  )
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [params])
+  return useRoutes([
+    {
+      path: "/",
+      element: (
+        <Suspense>
+          <Menu />
+        </Suspense>
+      ),
+    },
+    {
+      path: "/product/:id",
+      element: (
+        <Suspense>
+          <Details />
+        </Suspense>
+      ),
+    },
+    {
+      path: "/auth",
+      element: token ? (
+        <Navigate to="/" />
+      ) : (
+        <Suspense>
+          <Outlet />
+        </Suspense>
+      ),
+      children: [
+        {
+          index: true,
+          element: (
+            <Suspense>
+              <Login />
+            </Suspense>
+          ),
+        },
+        {
+          path: "register",
+          element: (
+            <Suspense>
+              <Register />
+            </Suspense>
+          ),
+        },
+      ],
+    },
+    {
+      path: "/cartProduct",
+      element: (
+        <Suspense>
+          <CartProducts />
+        </Suspense>
+      ),
+    },
+    {
+      path: "/profile",
+      element: token ? (
+        <Suspense>
+          <Profile />
+        </Suspense>
+      ) : (
+        <Navigate to="/auth" />
+      ),
+    },
+  ]);
 }
 
-export default App
+export default App;
